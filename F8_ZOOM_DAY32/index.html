@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Cây Thư Mục</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        .tree {
+            margin: 20px;
+        }
+
+        .tree ul {
+            list-style: none;
+            padding-left: 1em;
+            line-height: 1.5em;
+            border-left: 1px solid #ccc;
+            margin: 0;
+        }
+
+        .tree li {
+            margin: 4px 0;
+            padding-left: 1em;
+            position: relative;
+        }
+
+        .tree li::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0.75em;
+            width: 10px;
+            height: 1px;
+            background: #ccc;
+        }
+
+        .folder::before {
+            content: "📁 ";
+            margin-right: 4px;
+        }
+
+        .file::before {
+            content: "📄 ";
+            margin-right: 4px;
+        }
+
+        .folder {
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .children {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, opacity 0.3s ease;
+            opacity: 0;
+        }
+
+        .children.open {
+            max-height: 500px;
+            /* dài hơn 500px thì em đang nghĩ */
+            opacity: 1;
+        }
+
+        .context-menu {
+            position: absolute;
+            display: none;
+            background: white;
+            border: 1px solid #ccc;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            font-size: 14px;
+            padding: 4px 0;
+            border-radius: 6px;
+        }
+
+        .context-menu ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .context-menu li {
+            padding: 6px 20px;
+            cursor: pointer;
+        }
+
+        .context-menu li:hover {
+            background-color: #f2f2f2;
+        }
+
+        .fade-out {
+            opacity: 0;
+            max-height: 0;
+            padding: 0;
+            margin: 0;
+            overflow: hidden;
+            transition: opacity 0.3s ease, max-height 0.3s ease, padding 0.3s ease, margin 0.3s ease;
+        }
+
+        .rename-input {
+            font-size: inherit;
+            font-family: inherit;
+            padding: 2px 4px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Cây Thư Mục</h2>
+    <div class="tree">
+        <!-- <ul>
+      <li>
+        <span class="folder" data-toggle="folder">Thư mục A</span>
+        <ul class="children">
+          <li><span class="file">file_a1.txt</span></li>
+          <li>
+            <span class="folder" data-toggle="folder">Thư mục B</span>
+            <ul class="children">
+              <li><span class="file">file_b1.txt</span></li>
+              <li><span class="file">file_b2.txt</span></li>
+            </ul>
+          </li>
+          <li><span class="file">file_a2.txt</span></li>
+        </ul>
+      </li>
+      <li>
+        <span class="folder" data-toggle="folder">Thư mục C</span>
+        <ul class="children">
+          <li><span class="file">file_c1.txt</span></li>
+        </ul>
+      </li>
+    </ul> -->
+    </div>
+
+    <div id="context-menu" class="context-menu">
+        <ul>
+            <li id="rename">✏️ Đổi tên</li>
+            <li id="delete">🗑️ Xóa</li>
+        </ul>
+    </div>
+    <script src="./main.js"></script>
+</body>
+
+</html>
